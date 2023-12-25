@@ -8,8 +8,49 @@
     <link rel="icon" type="image/x-icon" href="ICON.png">
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  
+
+
+
   <body onload="startTime()">
+  
+    <script> 
+      function mobileCheck (){
+         if (window.screen.width>3000){
+              document.getElementById("app").style.display = "none";
+              document.getElementById("desktop-msg").style.display = "flex";
+         }
+         else{
+             document.getElementById("app").style.opacity = 1;
+             document.getElementById("app").style.visibility = "visible";
+         }
+      }
+      window.onload = function() {
+        mobileCheck();
+      };
+      </script>
+
+<div id="desktop-msg" class="desktop-class" style="">
+  <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
+</div>
+<div id="app">
+<div id="overlay">
+  <div class="flex-center">
+  <button id="startButton">
+      ENTER
+  </button>
+  </div>
+</div>
+<div id="thing" class="loading z-1">
+  <span class="intro">TEST</span></span>
+</div>
+</div>
+
+  
+   
+          
+     
+
+
 
       <div>
        <div class="righttop">
@@ -70,6 +111,8 @@
   }
 
 </script>
+
+
     
 
 

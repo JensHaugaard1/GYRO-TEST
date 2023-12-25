@@ -8,6 +8,24 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/l
 import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/DeviceOrientationControls.js';
 
 
+const startButton = document.getElementById( 'startButton' );
+    var fadingText = document.getElementById('thing').style;
+    fadingText.opacity = 1;
+    function fade()
+    {
+        (fadingText.opacity-=.01)<0?fadingText.display="none":setTimeout(fade,100)
+    }
+
+
+startButton.addEventListener( 'click', function () {
+
+    const overlay = document.getElementById( 'overlay' );
+    overlay.remove();
+    init();
+    animate();
+    fade();
+} );
+
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
@@ -24,7 +42,7 @@ let object;
 let controls;
 
 //Set which object to render
-let objToRender = 'dino';
+let objToRender = 'eye';
 
 
 //Instantiate a loader for the .gltf file
@@ -49,7 +67,7 @@ loader.load(
 );
 
 //Instantiate a new renderer and set its size
-const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); //Alpha: true allows for the transparent background
+const renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true }); //Alpha: true allows for the transparent background
 renderer.setSize(2160, 2160);
 
 
@@ -69,10 +87,12 @@ const ambientLight = new THREE.AmbientLight(0xffffff, objToRender === "eye" ? 5 
 scene.add(ambientLight);
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
-if (objToRender === "dino") {
+
+  controls = new OrbitControls(camera, renderer.domElement);
+ 
  controls = new DeviceOrientationControls(camera, renderer.domElement);
  
-}
+
 
 
 
@@ -80,7 +100,7 @@ if (objToRender === "dino") {
 function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
-  scene.rotation.y += 0.005 + (scrollY / 5000);
+  object.rotation.y += 0.005;
   
 
   //Make the eye move
