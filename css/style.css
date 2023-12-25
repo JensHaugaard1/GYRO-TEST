@@ -14,7 +14,7 @@ body {
   font-weight: 750;
   font-style: normal;
   text-decoration: none;
-  height: 10000%;
+  height: 100svh;
   -webkit-overflow-scrolling: touch;
   margin: 0;
   padding: 0;
@@ -268,6 +268,7 @@ button {
   font-family: 'helvetica', sans-serif;
   font-size: 24px;
   z-index: 7000;
+  height: 100dvh;
 }
 
 .social{
@@ -288,6 +289,7 @@ button {
     color:white;
     text-align: center;
     margin-bottom: 50px;
+    z-index: 10000;
 }
 .loading{
     height: auto;
@@ -299,6 +301,7 @@ button {
   margin-top: -150px;
   text-align: left;
   font-size: 24px;
+  z-index: 9000;
 }
 .right{
     text-align: right;

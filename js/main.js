@@ -16,7 +16,6 @@ const startButton = document.getElementById( 'startButton' );
         (fadingText.opacity-=.01)<0?fadingText.display="none":setTimeout(fade,100)
     }
 
-
 startButton.addEventListener( 'click', function () {
 
     const overlay = document.getElementById( 'overlay' );
