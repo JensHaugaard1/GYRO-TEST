@@ -163,6 +163,9 @@ startButton.addEventListener( 'click', function () {
 function init() {
 
 
+
+
+
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
@@ -178,13 +181,12 @@ loader.load(
     //While it is loading, log the progress
     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
   },
-  function (error) {
-    //If there is an error, log it
-    console.error(error);
-  }
+
 );
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
+
+
+    camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1100 );
 
     controls = new DeviceOrientationControls( camera );
 
@@ -201,8 +203,18 @@ loader.load(
     const mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
 
-    camera.position.y = 300;
-    scene.rotation.x = -1.5;
+    camera.position.y = 0;
+    camera.position.z = 300;
+    mesh.position.z = 300;
+    mesh.position.x = 0;
+
+    
+
+
+
+
+
+   
 
     // const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
     // const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
@@ -218,7 +230,12 @@ loader.load(
 
     //
 
+
+
+
     window.addEventListener( 'resize', onWindowResize );
+
+    
 
 
 }
@@ -238,6 +255,7 @@ function onWindowResize() {
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
 
 
 </script>
