@@ -66,7 +66,7 @@ loader.load(
 );
 
 //Instantiate a new renderer and set its size
-const renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true }); //Alpha: true allows for the transparent background
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); //Alpha: true allows for the transparent background
 renderer.setSize(2160, 2160);
 
 
@@ -98,7 +98,7 @@ scene.add(topLight);
 function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
- // object.rotation.y += 0.005;
+ 
 
 
  
