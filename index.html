@@ -8,39 +8,35 @@
     <link rel="icon" type="image/x-icon" href="ICON.png">
     <link rel="stylesheet" href="css/style.css" />
   </head>
+
+  <body>
   
-  <body onload="startTime()">
+    controls.update();
 
-      <div>
-       <div class="righttop">
-        <a href="https://www.erdetfredag.dk/"><div id="clock"></div></a>
-       </div>
-
-       <div class="lefttop">
-        
-        <p class="line-1 anim-typewriter"><a href="./">JENS HAUGAARD</a></p>
-
-
-        
-         </div>
-      
-        
-       
-
-      <div class="rightbottom">
-
-          
-          <p><a href="mailto: hello@jenshaugaard.com">MAIL</a></p>
-
-      </div>
-
-      <div class="leftbottom">
-  
-        
-          <p> <a href="https://www.instagram.com/jenshaugaaard">INSTAGRAM</a></p>
-
+    <div id="desktop-msg" class="desktop-class" style="">
+      <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
+  </div>
+  <div id="app">
+  <div id="overlay">
+      <div class="flex-center">
+      <button id="startButton">
+        <p class="line-1 anim-typewriter">ENTER</p>
+      </button>
       </div>
   </div>
+   <div id="thing" class="loading z-1">
+      <span class="intro">TEST</span></span>
+  </div>
+  </div>
+
+  
+   
+          
+     
+
+
+
+
     
 
     <div  id="mouse-circle"></div>
@@ -49,186 +45,45 @@
     
 
 
-  <!-- <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
     
     <script src="script.js"></script>
     
---->
+    <script> 
+      function mobileCheck (){
+         if (window.screen.width>3000){
+              document.getElementById("app").style.display = "none";
+              document.getElementById("desktop-msg").style.display = "flex";
+         }
+         else{
+             document.getElementById("app").style.opacity = 1;
+             document.getElementById("app").style.visibility = "visible";
+         }
+      }
+      window.onload = function() {
+        mobileCheck();
+      };
+      </script>
 
-    <script>function startTime() {
-    const today = new Date();
-    let h = today.getHours();
-    let m = today.getMinutes();
-    let s = today.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
-    setTimeout(startTime, 1000);
-  }
-  
-  function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-  }
 
-</script>
+
+
     
 
 
-  <main>
 
    
 
-    <!-- <div class="video">
+    <div class="video">
+
       <div id="container3D"></div>  
+
     </div>
 
 
-</div>
---->
-
-<div id="desktop-msg" class="desktop-class" style="display: flex;">
-  <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
-</div>
-
-<div id="app" style="display: none;">
-  <div id="overlay">
-      <div class="flex-center">
-      <span class="intro">
-I wish I may, I wish I might,<br>
-Have the wish I wish tonight.</span>
-      <button id="startButton">
-          Wish
-      </button>
-      </div>
-  </div>
-   <div id="thing" class="loading z-1" style="opacity: 1;">
-      <span class="intro">Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. <br>I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to space.<br><span class="right">Douglas Adams</span></span>
-  </div>
-  </div>
-
-  <script> 
-    function mobileCheck (){
-       if (window.screen.width>800){
-            document.getElementById("app").style.display = "none";
-            document.getElementById("desktop-msg").style.display = "flex";
-       }
-       else{
-           document.getElementById("app").style.opacity = 1;
-           document.getElementById("app").style.visibility = "visible";
-       }
-    }
-    window.onload = function() {
-      mobileCheck();
-    };
-    </script>
-    <body>
-        <div id="desktop-msg" class="desktop-class" style="">
-            <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
-        </div>
-        <div id="app">
-        <div id="overlay">
-            <div class="flex-center">
-            <span class="intro">
-    I wish I may, I wish I might,<br>
-    Have the wish I wish tonight.</span>
-            <button id="startButton">
-                Wish
-            </button>
-            </div>
-        </div>
-         <div id="thing" class="loading z-1">
-            <span class="intro">Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is. <br>I mean, you may think it's a long way down the road to the chemist's, but that's just peanuts to space.<br><span class="right">Douglas Adams</span></span>
-        </div>
-        </div>
-        
-    </body>
-    
-    <script type="module">
-    
-    
-    import * as THREE from 'https://unpkg.com/three@0.126.0/build/three.module.js';
-    import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/DeviceOrientationControls.js';
-    
-    let camera, scene, renderer, controls;
-    
-    const startButton = document.getElementById( 'startButton' );
-        var fadingText = document.getElementById('thing').style;
-        fadingText.opacity = 1;
-        function fade()
-        {
-            (fadingText.opacity-=.01)<0?fadingText.display="none":setTimeout(fade,100)
-        }
-    
-    
-    startButton.addEventListener( 'click', function () {
-    
-        const overlay = document.getElementById( 'overlay' );
-        overlay.remove();
-        init();
-        animate();
-        fade();
-    } );
-    
-    function init() {
-    
-        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-    
-        controls = new DeviceOrientationControls( camera );
-    
-        scene = new THREE.Scene();
-    
-        const geometry = new THREE.SphereGeometry( 500, 60, 40 );
-        // invert the geometry on the x-axis so that all of the faces point inward
-        geometry.scale( - 1, 1, 1 );
-        //https://mir-s3-cdn-cf.behance.net/project_modules/fs/211e3a77589717.603e6e5607c60.jpg
-        const material = new THREE.MeshBasicMaterial( {
-            map: new THREE.TextureLoader().load( 'banka-aliance-min.jpg' )
-        } );
-    
-        const mesh = new THREE.Mesh( geometry, material );
-        scene.add( mesh );
-    
-        // const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
-        // const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
-        // const helper = new THREE.Mesh( helperGeometry, helperMaterial );
-        // scene.add( helper );
-    
-        //
-    
-        renderer = new THREE.WebGLRenderer( { antialias: true } );
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        document.body.appendChild( renderer.domElement );
-    
-        //
-    
-        window.addEventListener( 'resize', onWindowResize );
-    
-    
-    }
-    
-    function animate() {
-    
-        window.requestAnimationFrame( animate );
-        controls.update();
-        renderer.render( scene, camera );
-    
-    }
-    
-    function onWindowResize() {
-    
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize( window.innerWidth, window.innerHeight );
-    
-    }
-    
-    
-    </script>
 
 
-</main> 
+
 
   </body>
 </html>
