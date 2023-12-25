@@ -29,7 +29,7 @@ startButton.addEventListener( 'click', function () {
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(20, 2160 / 2160, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(10, 2160 / 2160, 0.1, 2000);
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
@@ -98,7 +98,7 @@ scene.add(topLight);
 function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
-  object.rotation.y += 0.005;
+ // object.rotation.y += 0.005;
   
   
 
