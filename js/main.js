@@ -26,14 +26,11 @@ startButton.addEventListener( 'click', function () {
     fade();
 } );
 
+
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(40, 2160 / 2160, 0.1, 2000);
-
-//Keep track of the mouse position, so we can make the eye move
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+const camera = new THREE.PerspectiveCamera(20, 2160 / 2160, 0.1, 2000);
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
@@ -48,9 +45,12 @@ let objToRender = 'eye';
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
+
+function init() {
+
 //Load the file
 loader.load(
-  `models/${objToRender}/scene.gltf`,
+  `models/eye/scene.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
@@ -83,14 +83,13 @@ topLight.position.set(1000, 1000, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, objToRender === "eye" ? 5 : 1);
-scene.add(ambientLight);
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
 
-  controls = new OrbitControls(camera, renderer.domElement);
+
  
  controls = new DeviceOrientationControls(camera, renderer.domElement);
+// controls = new OrbitControls(camera, renderer.domElement);
  
 
 
@@ -102,19 +101,7 @@ function animate() {
   //Here we could add some code to update the scene, adding some automatic movement
   object.rotation.y += 0.005;
   
-
-  //Make the eye move
-  if (object && objToRender === "eye") {
-    //I've played with the constants here until it looked good 
-    
-    //object.rotation.x = -1 + mouseY * 1 / window.innerHeight;
-    //object.rotation.y += 0.01;
-    //object.rotation.y += 0.01;
-    object.rotation.y =  + scrollY / 410;
-
-  }
-
-
+  
 
   renderer.render(scene, camera);
 }
@@ -128,32 +115,13 @@ window.addEventListener("resize", function () {
   renderer.setSize(1080, 1080);
 });
 
-//add mouse position listener, so we can make the eye move
-document.onmousemove = (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-
-
-  
-}
-
-let scrollY = window.scrollY
-
-
-window.addEventListener('scroll', () =>
-{
-    scrollY = window.scrollY
-
-    console.log(scrollY)
-})
-
 
 
 
 //Start the 3D rendering
 animate();
 
-
+}
 
 //---------------------------------------------------
 
