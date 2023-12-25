@@ -1,98 +1,220 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>three.js webgl - controls - deviceorientation</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<link type="text/css" rel="stylesheet" href="main.css">
-	</head>
-	<body>
-		<div id="overlay">
-			<button id="startButton">Start Demo</button>
-		</div>
-		<div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - equirectangular panorama demo with DeviceOrientation controls.<br/>
-			photo by <a href="http://www.flickr.com/photos/jonragnarsson/2294472375/" target="_blank" rel="noopener">Jón Ragnarsson</a>.
-		</div>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPACE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css2?family=Teko&display=swap" rel="stylesheet">
+</head>
+<style>
+    
+    #overlay {
+    position: absolute;
+    font-size: 16px;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0,0,0,1);
+}
+button {
+    background: transparent;
+    border: 0;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 0px;
+    color: #ffffff;
+    padding: 6px 9px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'helvetica', sans-serif;
+    font-size: 24px;
+}
 
-		<script type="module">
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+        font-family: 'helvetica', sans-serif;
+}
 
-            
-        import * as THREE from 'https://graphics.cs.wisc.edu/Courses/559-sp21-three/three.js/build/three.module.js';
-        import { DeviceOrientationControls } from 'https://graphics.cs.wisc.edu/Courses/559-sp21-three/three.js/examples/jsm/controls/DeviceOrientationControls.js';
-        import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
+canvas {
+    display: block;
+}
+.social{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.flex-center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 320px;
+    padding: 20px
+}
+.intro{
+    font-family: 'helvetica', sans-serif;
+    font-size: 24px;
+    color:white;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.loading{
+    height: auto;
+  width: 300px;
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+  top: 50%;
+  margin-top: -150px;
+  text-align: left;
+  font-size: 24px;
+}
+.right{
+    text-align: right;
+    float: right;
+}
+
+.desktop-class{
+    background-color: black; width: 100%; height: 100%; position: relative; display: none;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+#app{
+    opacity: 0;
+    visibility: hidden;
+}
+
+</style>
+<script> 
+function mobileCheck (){
+   if (window.screen.width>3000){
+        document.getElementById("app").style.display = "none";
+        document.getElementById("desktop-msg").style.display = "flex";
+   }
+   else{
+       document.getElementById("app").style.opacity = 1;
+       document.getElementById("app").style.visibility = "visible";
+   }
+}
+window.onload = function() {
+  mobileCheck();
+};
+</script>
+<body>
+    <div id="desktop-msg" class="desktop-class" style="">
+        <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
+    </div>
+    <div id="app">
+    <div id="overlay">
+        <div class="flex-center">
+        <button id="startButton">
+            ENTER
+        </button>
+        </div>
+    </div>
+     <div id="thing" class="loading z-1">
+        <span class="intro">TEST</span></span>
+    </div>
+    </div>
+    
+</body>
+
+<script type="module">
 
 
-			let camera, scene, renderer, controls;
+import * as THREE from 'https://unpkg.com/three@0.126.0/build/three.module.js';
+import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/DeviceOrientationControls.js';
 
-			const startButton = document.getElementById( 'startButton' );
-			startButton.addEventListener( 'click', function () {
+let camera, scene, renderer, controls;
 
-				init();
-				animate();
-
-			}, false );
-
-			function init() {
-
-				const overlay = document.getElementById( 'overlay' );
-				overlay.remove();
-
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
-
-				controls = new DeviceOrientationControls( camera );
-
-				scene = new THREE.Scene();
-
-				const geometry = new THREE.SphereBufferGeometry( 500, 60, 40 );
-				// invert the geometry on the x-axis so that all of the faces point inward
-				geometry.scale( - 1, 1, 1 );
-
-				const material = new THREE.MeshBasicMaterial( {
-					map: new THREE.TextureLoader().load( 'https://images.unsplash.com/photo-1557971370-e7298ee473fb?q=80&w=2060&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' )
-				} );
-
-				const mesh = new THREE.Mesh( geometry, material );
-				scene.add( mesh );
-
-				const helperGeometry = new THREE.BoxBufferGeometry( 100, 100, 100, 4, 4, 4 );
-				const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
-				const helper = new THREE.Mesh( helperGeometry, helperMaterial );
-				scene.add( helper );
-
-				//
-
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
-
-				//
-
-				window.addEventListener( 'resize', onWindowResize, false );
+const startButton = document.getElementById( 'startButton' );
+    var fadingText = document.getElementById('thing').style;
+    fadingText.opacity = 1;
+    function fade()
+    {
+        (fadingText.opacity-=.01)<0?fadingText.display="none":setTimeout(fade,100)
+    }
 
 
-			}
+startButton.addEventListener( 'click', function () {
 
-			function animate() {
+    const overlay = document.getElementById( 'overlay' );
+    overlay.remove();
+    init();
+    animate();
+    fade();
+} );
 
-				window.requestAnimationFrame( animate );
+function init() {
 
-				controls.update();
-				renderer.render( scene, camera );
+    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 
-			}
+    controls = new DeviceOrientationControls( camera );
 
-			function onWindowResize() {
+    scene = new THREE.Scene();
 
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
+    const geometry = new THREE.SphereGeometry( 500, 60, 40 );
+    // invert the geometry on the x-axis so that all of the faces point inward
+    geometry.scale( - 1, 1, 1 );
+    //https://mir-s3-cdn-cf.behance.net/project_modules/fs/211e3a77589717.603e6e5607c60.jpg
+    const material = new THREE.MeshBasicMaterial( {
+        map: new THREE.TextureLoader().load( 'https://images.unsplash.com/photo-1557971370-e7298ee473fb?q=80&w=2060&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' )
+    } );
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+    const mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
 
-			}
+    // const helperGeometry = new THREE.BoxGeometry( 100, 100, 100, 4, 4, 4 );
+    // const helperMaterial = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true } );
+    // const helper = new THREE.Mesh( helperGeometry, helperMaterial );
+    // scene.add( helper );
 
-		</script>
-	</body>
+    //
+
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    //
+
+    window.addEventListener( 'resize', onWindowResize );
+
+
+}
+
+function animate() {
+
+    window.requestAnimationFrame( animate );
+    controls.update();
+    renderer.render( scene, camera );
+
+}
+
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
+
+
+</script>
+<script data-goatcounter="https://gekolev.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </html>
