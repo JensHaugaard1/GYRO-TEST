@@ -99,8 +99,11 @@ function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
  // object.rotation.y += 0.005;
-  
-  
+
+
+ 
+ controls.update();
+
 
   renderer.render(scene, camera);
 }
