@@ -65,8 +65,8 @@ transition: height 0.3s ease-in-out;
   #container3D canvas {
   
   position: relative;
-  width: 100vw !important;
-  height: 100vw !important;
+  width: 100dvw !important;
+  height: 100dvw !important;
   scale: 0.5;
   transition: scale 0.3s ease-in-out;
  } 

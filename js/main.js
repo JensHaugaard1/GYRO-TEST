@@ -29,7 +29,7 @@ startButton.addEventListener( 'click', function () {
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(10, 2160 / 2160, 0.1, 2000);
+const camera = new THREE.OrthographicCamera( 1080 / - 5, 1080 / 5, 1080 / 5, 1080 / - 5, 1, 1000 );
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
@@ -38,7 +38,7 @@ let object;
 let controls;
 
 //Set which object to render
-let objToRender = 'eye';
+let objToRender = 'dino';
 
 
 //Instantiate a loader for the .gltf file
@@ -70,6 +70,7 @@ const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); //Al
 renderer.setSize(2160, 2160);
 
 
+
 //Add the renderer to the DOM
 document.getElementById("container3D").appendChild(renderer.domElement);
 
@@ -87,8 +88,8 @@ scene.add(topLight);
 
 
  
- controls = new DeviceOrientationControls(camera, renderer.domElement);
-// controls = new OrbitControls(camera, renderer.domElement);
+ //controls = new DeviceOrientationControls(scene, renderer.domElement);
+//controls = new OrbitControls(camera, renderer.domElement);
  
 
 
@@ -99,10 +100,10 @@ function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
  
-
+ // object.rotation.x = 1.55;
 
  
- controls.update();
+ //controls.update();
 
 
   renderer.render(scene, camera);
@@ -117,7 +118,20 @@ window.addEventListener("resize", function () {
   renderer.setSize(1080, 1080);
 });
 
+window.addEventListener('deviceorientation', function(e) {
+  var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 2;
+  object.rotation.y = gammaRotation;
 
+  var betaRotation = e.beta ? e.beta * (Math.PI / 180) : 2;
+  object.rotation.x = betaRotation;
+
+});
+
+//add mouse position listener, so we can make the eye move
+document.onmousemove = (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+}
 
 
 //Start the 3D rendering
