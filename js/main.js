@@ -29,7 +29,7 @@ startButton.addEventListener( 'click', function () {
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(50, 1080 / 1080, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(30, 1080 / 1080, 0.1, 1000);
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
@@ -75,7 +75,7 @@ renderer.setSize(2160, 2160);
 document.getElementById("container3D").appendChild(renderer.domElement);
 
 //Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "eye" ? 500 : 500;
+camera.position.z = objToRender === "eye" ? 750 : 500;
 
 //Add lights to the scene, so we can actually see the 3D model
 const topLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
@@ -127,14 +127,14 @@ window.addEventListener('deviceorientation', function(e) {
 });
 
 //add mouse position listener, so we can make the eye move
-document.onmousemove = (e) => {
-  var mouseX = e.clientX;
-  var mouseY = e.clientY;
+//document.onmousemove = (e) => {
+//  var mouseX = e.clientX;
+//  var mouseY = e.clientY;
 
-   object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 2;
-   object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 2;
-   console.log(mouseX)
-}
+ //  object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 2;
+ //  object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 2;
+ //  console.log(mouseX)
+//}
 
 
 //Start the 3D rendering
