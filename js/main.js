@@ -30,7 +30,7 @@ startButton.addEventListener( 'click', function () {
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
 //const camera = new THREE.OrthographicCamera( 1080 / - 6, 1080 / 6, 1080 / 6, 1080 / - 6, 1, 1000 );
-const camera = new THREE.PerspectiveCamera(40, 1 / 1, 0.1, 500);
+const camera = new THREE.PerspectiveCamera(40, 1 / 1, 0.1, 1000);
 
 
 //Keep the 3D object on a global variable so we can access it later
@@ -45,7 +45,7 @@ let objToRender = 'eye';
 
 const loader = new GLTFLoader();
 
-
+THREE.ColorManagement.enabled = true;
 
 function init() {
 
@@ -86,7 +86,7 @@ topLight.position.set(1000, 1000, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
-const light = new THREE.AmbientLight( 0x404040, 4.5 ); // soft white light
+const light = new THREE.AmbientLight( 0x404040, 4 ); // soft white light
 scene.add( light );
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
@@ -109,7 +109,7 @@ function animate() {
 
  
  //controls.update();
-
+ renderer.outputColorSpace = THREE.SRGBColorSpace;
 
   renderer.render(scene, camera);
 }
