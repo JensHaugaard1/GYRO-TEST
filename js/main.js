@@ -29,7 +29,9 @@ startButton.addEventListener( 'click', function () {
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
-const camera = new THREE.OrthographicCamera( 1080 / - 6, 1080 / 6, 1080 / 6, 1080 / - 6, 1, 1000 );
+//const camera = new THREE.OrthographicCamera( 1080 / - 6, 1080 / 6, 1080 / 6, 1080 / - 6, 1, 1000 );
+const camera = new THREE.PerspectiveCamera(40, 2160 / 2160, 0.1, 2000);
+
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
@@ -120,21 +122,21 @@ window.addEventListener("resize", function () {
 
 window.addEventListener('deviceorientation', function(e) {
   var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
-  object.rotation.y = gammaRotation;
+  object.rotation.y = gammaRotation / 2;
 
   var betaRotation = e.beta ? e.beta * (Math.PI / 180) : 0;
-  object.rotation.x = betaRotation;
+  object.rotation.x = betaRotation / 2;
 });
 
 //add mouse position listener, so we can make the eye move
-//document.onmousemove = (e) => {
-//  var mouseX = e.clientX;
-//  var mouseY = e.clientY;
+document.onmousemove = (e) => {
+  var mouseX = e.clientX;
+  var mouseY = e.clientY;
 
- //  object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 2;
- //  object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 2;
- //  console.log(mouseX)
-//}
+  object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 2;
+  object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 2;
+  console.log(mouseX)
+}
 
 
 //Start the 3D rendering
