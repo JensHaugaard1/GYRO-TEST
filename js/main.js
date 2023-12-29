@@ -69,7 +69,7 @@ loader.load(
 
 //Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); //Alpha: true allows for the transparent background
-renderer.setSize(2160, 2160);
+renderer.setSize(1280, 1280);
 
 
 
