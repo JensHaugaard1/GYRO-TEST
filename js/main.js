@@ -30,7 +30,7 @@ startButton.addEventListener( 'click', function () {
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
 //const camera = new THREE.OrthographicCamera( 1080 / - 6, 1080 / 6, 1080 / 6, 1080 / - 6, 1, 1000 );
-const camera = new THREE.PerspectiveCamera(40, 2160 / 2160, 0.1, 2000);
+const camera = new THREE.PerspectiveCamera(40, 1 / 1, 0.1, 500);
 
 
 //Keep the 3D object on a global variable so we can access it later
@@ -51,7 +51,7 @@ function init() {
 
 //Load the file
 loader.load(
-  `models/BS1.gltf`,
+  `models/BS3.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
@@ -77,10 +77,11 @@ renderer.setSize(2160, 2160);
 document.getElementById("container3D").appendChild(renderer.domElement);
 
 //Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "eye" ? 500 : 500;
+camera.position.set(0,0,20); // Set position like this
+camera.lookAt(new THREE.Vector3(0,0,0)); // Set look at coordinate like this
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 3); // (color, intensity)
+const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
 topLight.position.set(1000, 1000, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
