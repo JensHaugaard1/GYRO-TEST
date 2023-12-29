@@ -42,9 +42,9 @@ let controls;
 //Set which object to render
 let objToRender = 'eye';
 
-var clock = new THREE.Clock;
-//Instantiate a loader for the .gltf file
+
 const loader = new GLTFLoader();
+
 
 
 function init() {
@@ -81,11 +81,13 @@ camera.position.set(0,0,20); // Set position like this
 camera.lookAt(new THREE.Vector3(0,0,0)); // Set look at coordinate like this
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
+const topLight = new THREE.DirectionalLight(0x404040, 0.4); // (color, intensity)
 topLight.position.set(1000, 1000, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
+const light = new THREE.AmbientLight( 0x404040, 4.5 ); // soft white light
+scene.add( light );
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
 
