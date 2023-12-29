@@ -42,7 +42,7 @@ let controls;
 //Set which object to render
 let objToRender = 'eye';
 
-
+var clock = new THREE.Clock;
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
@@ -135,7 +135,7 @@ document.onmousemove = (e) => {
 
   object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 2;
   object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 2;
-  console.log(mouseX)
+
 }
 
 
