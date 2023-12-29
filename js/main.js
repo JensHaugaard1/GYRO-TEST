@@ -8,13 +8,6 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/l
 import { DeviceOrientationControls } from 'https://unpkg.com/three@0.126.0/examples/jsm/controls/DeviceOrientationControls.js';
 
 
-const startButton = document.getElementById( 'startButton' );
-    var fadingText = document.getElementById('thing').style;
-    fadingText.opacity = 1;
-    function fade()
-    {
-        (fadingText.opacity-=.01)<0?fadingText.display="none":setTimeout(fade,100)
-    }
 
 startButton.addEventListener( 'click', function () {
 
@@ -29,16 +22,16 @@ startButton.addEventListener( 'click', function () {
 //Create a Three.JS Scene
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(30, 1080 / 1080, 0.1, 1000);
+const camera = new THREE.OrthographicCamera( 1080 / - 5, 1080 / 5, 1080 / 5, 1080 / - 5, 1, 1000 );
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
 
 //OrbitControls allow the camera to move around the scene
-let controls;
+//let controls;
 
 //Set which object to render
-let objToRender = 'eye';
+let objToRender = 'coming';
 
 
 //Instantiate a loader for the .gltf file
@@ -69,17 +62,23 @@ loader.load(
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); //Alpha: true allows for the transparent background
 renderer.setSize(2160, 2160);
 
+window.addEventListener('deviceorientation', function(e) {
+  var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
+  object.rotation.y = gammaRotation;
 
+  var betaRotation = e.beta ? e.beta * (Math.PI / 180) : 0;
+  object.rotation.x = betaRotation;
+});
 
 //Add the renderer to the DOM
 document.getElementById("container3D").appendChild(renderer.domElement);
 
 //Set how far the camera will be from the 3D model
-camera.position.z = objToRender === "eye" ? 750 : 500;
+camera.position.z = objToRender === "coming" ? 750 : 500;
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 4); // (color, intensity)
-topLight.position.set(1000, 1000, 1000) //top-left-ish
+const topLight = new THREE.DirectionalLight(0xffffff, 5); // (color, intensity)
+topLight.position.set(500, 250, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
@@ -99,11 +98,15 @@ scene.add(topLight);
 function animate() {
   requestAnimationFrame(animate);
   //Here we could add some code to update the scene, adding some automatic movement
- 
+  window.addEventListener("resize", function () {
+    camera.aspect = 1080 / 1080;
+    camera.updateProjectionMatrix();
+    renderer.setSize(1080, 1080);
+  });
  // object.rotation.x = 1.55;
 
  
- //controls.update();
+// controls.update();
 
 
   renderer.render(scene, camera);
@@ -112,19 +115,9 @@ function animate() {
 
 
 //Add a listener to the window, so we can resize the window and the camera
-window.addEventListener("resize", function () {
-  camera.aspect = 1080 / 1080;
-  camera.updateProjectionMatrix();
-  renderer.setSize(1080, 1080);
-});
 
-window.addEventListener('deviceorientation', function(e) {
-  var gammaRotation = e.gamma ? e.gamma * (Math.PI / 180) : 0;
-  object.rotation.y = gammaRotation / 2;
 
-  var betaRotation = e.beta ? e.beta * (Math.PI / 180) : 0;
-  object.rotation.x = betaRotation / 2;
-});
+
 
 //add mouse position listener, so we can make the eye move
 //document.onmousemove = (e) => {
@@ -138,6 +131,8 @@ window.addEventListener('deviceorientation', function(e) {
 
 
 //Start the 3D rendering
+
+
 animate();
 
 }
