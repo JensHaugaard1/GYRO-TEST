@@ -81,12 +81,12 @@ camera.position.set(0,0,20); // Set position like this
 camera.lookAt(new THREE.Vector3(0,0,0)); // Set look at coordinate like this
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0x404040, 0.4); // (color, intensity)
+const topLight = new THREE.DirectionalLight(0x404040, 1); // (color, intensity)
 topLight.position.set(1000, 1000, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
-const light = new THREE.AmbientLight( 0x404040, 4 ); // soft white light
+const light = new THREE.AmbientLight( 0x404040, 3.2 ); // soft white light
 scene.add( light );
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
@@ -136,8 +136,8 @@ document.onmousemove = (e) => {
   var mouseX = e.clientX;
   var mouseY = e.clientY;
 
-  object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 2;
-  object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 2;
+  object.rotation.y = (-0.5 + mouseX / window.innerWidth) / 1.5;
+  object.rotation.x = (-0.5 + mouseY / window.innerHeight) / 1.5;
 
 }
 
