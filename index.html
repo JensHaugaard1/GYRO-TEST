@@ -3,13 +3,42 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>JENSHAUGAARD.COMINGSOON</title>  
+    <title>JENS HAUGAARD</title>  
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.cdnfonts.com/css/helvetica-lt-narrow" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="ICON.png">
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body>
+  <body onclick="startTime()">
+
+    
+    <div class="righttop">
+      <div id="clock"></div>
+     </div>
+
+    
+
+     <div class="lefttop">
+      <a href="/">JENS HAUGAARD</a>
+       </div>
+    
+     
+
+    <div class="rightbottom">
+
+        
+        <p><a>MAIL</a></p>
+
+    </div>
+
+    <div class="leftbottom">
+
+      
+        <p> <a href="https://www.instagram.com/be_al__/">INSTAGRAM</a></p>
+
+    </div>
+</div>
   
     controls.update();
 
@@ -48,6 +77,8 @@
    
     <script src="script.js"></script>
     
+    
+
     <script> 
       function mobileCheck (){
          if (window.screen.width>3000){
@@ -64,6 +95,28 @@
       };
       </script>
 
+<script>function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+</script>
+
+
+
+
+
 
 
 
@@ -76,6 +129,7 @@
     <div class="video">
 
       <div id="container3D">  <script type="module" src="js/main.js"></script>
+        
       </div>  
 
     </div>
@@ -86,4 +140,6 @@
 
 
   </body>
+
+  
 </html>

@@ -10,8 +10,8 @@ body {
   color: white;
   cursor: none;
   font-size: 2vh;
-  font-family: "helvetica", sans-serif;
-  font-weight: 750;
+  font-family: 'Helvetica LT Narrow', sans-serif;
+  font-weight: 500;
   font-style: normal;
   text-decoration: none;
   height: 100svh;
@@ -116,9 +116,6 @@ transition: height 0.3s ease-in-out;
 
 
 
-
-
-
 .righttop { 
   text-align: right;
  position: fixed; 
@@ -134,66 +131,37 @@ transition: height 0.3s ease-in-out;
 .lefttop { 
   text-align: left;
  position: fixed; 
- top: 0.75svh; 
- left: 1svh;
+ top: 1svh; 
+ left: 1.5svh;
  width: 75%; 
  height: -100%; 
  color: rgb(0, 0, 0);
  z-index: 2000;
 }
 
-@media (min-width: 1001px) {
 
 .leftbottom { 
   text-align: left;
   position: fixed; 
-  bottom: -1svh;
+  bottom: -0.75svh; 
   left: 1.5svh;
   width: 50%; 
   color: rgb(0, 0, 0);
   z-index: 2000;
-  transition: all 0.3s ease-in-out;
+  
 }
  
 
 .rightbottom { 
    text-align: right;
   position: fixed; 
-  bottom: -1svh;
+  bottom: -0.75svh;
   right: 1.5svh;
   width: 50%;  
   cursor: none;
   z-index: 2000;
-  transition: all 0.3s ease-in-out;
-}
 
 }
-@media (max-width: 1000px) {
-
-  .leftbottom { 
-    text-align: left;
-    position: fixed; 
-    bottom: 0.5svh; 
-    left: 1.5svh;
-    width: 50%; 
-    color: rgb(0, 0, 0);
-    z-index: 2000;
-    transition: all 0.3s ease-in-out;
-  }
-   
-  
-  .rightbottom { 
-     text-align: right;
-    position: fixed; 
-    bottom: 0.5svh;
-    right: 1.5svh;
-    width: 50%;  
-    cursor: none;
-    z-index: 2000;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  }
 
 
 
@@ -228,7 +196,7 @@ li {
 
 
 .line-1{
-    border-right: 0.35svh solid  rgb(82, 82, 82);
+    border-right: 0.25svh solid;
     white-space: nowrap;
     overflow: hidden;
     text-align: left;
@@ -249,40 +217,31 @@ li {
 }
 @keyframes typewriter{
   from{width: 0;}
-  to{width: 3.5em;}
+  to{width: 2.9em;}
 }
 @keyframes blinkTextCursor{
-  from{border-right-color: rgb(151, 151, 151);}
+  from{border-right-color: rgb(130, 130, 130);}
   to{border-right-color: transparent;}
 }
 
 button {
   background: transparent;
   border: 0;
-  border: 0px solid rgb(103, 103, 103);
+  border: 0px solid rgb(0, 0, 0);
   border-radius: 0px;
-  color: #6f6f6f;
-  padding: 6px 9px;
+  color: #000000;
+  padding: 2px 9px;
   text-transform: uppercase;
   cursor: none;
-  font-family: 'helvetica', sans-serif;
+  font-family: 'Helvetica LT Narrow', sans-serif;
+  font-weight: 500;
+  font-style: normal;
   font-size: 2vh;
   z-index: 7000;
   
 }
 
-.social{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-}
-.flex-center{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 320px;
-    padding: 20px
-}
+
 .intro{
     font-family: 'helvetica', sans-serif;
     font-size: 24px;
@@ -333,7 +292,8 @@ button {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: rgb(182, 182, 182);
+  background: rgb(255, 255, 255);
   
 
 }
+

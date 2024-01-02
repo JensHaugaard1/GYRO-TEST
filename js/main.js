@@ -51,7 +51,7 @@ function init() {
 
 //Load the file
 loader.load(
-  `models/BS3.gltf`,
+  `models/BS5.gltf`,
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
