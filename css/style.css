@@ -9,13 +9,14 @@ body {
   background:#ffffff;
   color: white;
   cursor: none;
-  font-size: 1.8vh;
+  font-size: 1.8dvh;
   font-family: 'Helvetica', sans-serif;
   font-weight: 500;
   font-style: normal;
   text-decoration: none;
   height: 100svh;
   -webkit-overflow-scrolling: touch;
+
   margin: 0;
   padding: 0;
   overflow: auto;
@@ -59,8 +60,19 @@ main{
 transition: height 0.3s ease-in-out;
 }
  
+@media (min-width: 2001px) {
 
-@media (min-width: 1501px) {
+  #container3D canvas {
+  
+  position: relative;
+  width: 100dvw !important;
+  height: 100dvw !important;
+  scale: 0.45;
+  transition: scale 0.3s ease-in-out;
+ } 
+ }
+
+@media (min-width: 1501px) and (max-width: 2000px){
 
   #container3D canvas {
   
@@ -137,6 +149,7 @@ transition: height 0.3s ease-in-out;
  height: -100%; 
  color: rgb(0, 0, 0);
  z-index: 2000;
+ 
 }
 
 
@@ -204,7 +217,7 @@ li {
     top: -1.25svh;
     left: 1svh;
     width: 75%; 
-    color: rgb(82, 82, 82);
+    color: rgb(0, 0, 0);
     z-index: 2000;
      
 }
@@ -217,12 +230,19 @@ li {
 }
 @keyframes typewriter{
   from{width: 0;}
-  to{width: 2.9em;}
+  to{width: 3.5em;}
 }
 @keyframes blinkTextCursor{
   from{border-right-color: rgb(130, 130, 130);}
   to{border-right-color: transparent;}
 }
+
+.typewrite {
+  padding-right: 0.12em;
+  border-right: 0.12em solid #000000;
+}
+
+
 
 button {
   background: transparent;
@@ -233,10 +253,10 @@ button {
   padding: 2px 9px;
   text-transform: uppercase;
   cursor: none;
-  font-family: 'Helvetica LT Narrow', sans-serif;
+  font-family: 'Helvetica', sans-serif;
   font-weight: 500;
   font-style: normal;
-  font-size: 2vh;
+  font-size: 1.7vh;
   z-index: 7000;
   
 }

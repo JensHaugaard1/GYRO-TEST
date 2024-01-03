@@ -81,12 +81,20 @@ camera.position.set(0,0,20); // Set position like this
 camera.lookAt(new THREE.Vector3(0,0,0)); // Set look at coordinate like this
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0x404040, 1); // (color, intensity)
-topLight.position.set(1000, 1000, 1000) //top-left-ish
+const topLight = new THREE.DirectionalLight(0x404040, 0.75); // (color, intensity)
+topLight.position.set(0, 1000, 1000) //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
+const topLight2 = new THREE.DirectionalLight(0x404040, 0.75); // (color, intensity)
+topLight2.position.set(-1000, -500, 500) //top-left-ish
+topLight2.castShadow = true;
+scene.add(topLight2);
+
+
+
 const light = new THREE.AmbientLight( 0x404040, 3.2 ); // soft white light
+light.castShadow = true;
 scene.add( light );
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
@@ -106,7 +114,7 @@ function animate() {
   //Here we could add some code to update the scene, adding some automatic movement
  
  // object.rotation.x = 1.55;
-
+ renderer.setPixelRatio(window.devicePixelRatio);
  
  //controls.update();
  renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -120,6 +128,7 @@ function animate() {
 window.addEventListener("resize", function () {
   camera.aspect = 1080 / 1080;
   camera.updateProjectionMatrix();
+  
   renderer.setSize(1080, 1080);
 });
 
@@ -148,5 +157,61 @@ animate();
 }
 
 //---------------------------------------------------
+
+
+var TxtType = function(el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtType.prototype.tick = function() {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+        }
+
+        setTimeout(function() {
+        that.tick();
+        }, delta);
+    };
+
+    window.onload = function() {
+        var elements = document.getElementsByClassName('typewrite');
+        for (var i=0; i<elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-type');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+              new TxtType(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+       
+    };
+
+
 
 

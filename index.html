@@ -21,7 +21,9 @@
     
 
      <div class="lefttop">
-      <a href="/">JENS HAUGAARD</a>
+      <a href="" class="typewrite"  data-period="2000" data-type='[ "JENS HAUGAARD", "PHOTOGRAPHER", "CREATIVE" ]'>
+        <span class="wrap"></span>
+      </a>
        </div>
     
      
@@ -29,14 +31,14 @@
     <div class="rightbottom">
 
         
-        <p><a>MAIL</a></p>
+      <p><a href="mailto: hello@jenshaugaard.com">MAIL</a></p>
 
     </div>
 
     <div class="leftbottom">
 
       
-        <p> <a href="https://www.instagram.com/be_al__/">INSTAGRAM</a></p>
+        <p> <a href="https://www.instagram.com/jenshaugaaard/">INSTAGRAM</a></p>
 
     </div>
 </div>
@@ -44,7 +46,7 @@
     controls.update();
 
     <div id="desktop-msg" class="desktop-class" style="">
-      <h1 style="color: white; margin:0; text-align: center;">Stargazing available only for mobile devices!</h1>
+      <h1 style="color: white; margin:0; text-align: center;">only for mobile devices</h1>
   </div>
   <div id="app">
   <div id="overlay">
@@ -95,7 +97,65 @@
         mobileCheck();
       };
       </script>
+<script>
 
+
+  var TxtType = function(el, toRotate, period) {
+     this.toRotate = toRotate;
+     this.el = el;
+     this.loopNum = 0;
+     this.period = parseInt(period, 10) || 2000;
+     this.txt = '';
+     this.tick();
+     this.isDeleting = false;
+  };
+  
+  TxtType.prototype.tick = function() {
+     var i = this.loopNum % this.toRotate.length;
+     var fullTxt = this.toRotate[i];
+  
+     if (this.isDeleting) {
+     this.txt = fullTxt.substring(0, this.txt.length - 1);
+     } else {
+     this.txt = fullTxt.substring(0, this.txt.length + 1);
+     }
+  
+     this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+  
+     var that = this;
+     var delta = 200 - Math.random() * 100;
+  
+     if (this.isDeleting) { delta /= 2; }
+  
+     if (!this.isDeleting && this.txt === fullTxt) {
+     delta = this.period;
+     this.isDeleting = true;
+     } else if (this.isDeleting && this.txt === '') {
+     this.isDeleting = false;
+     this.loopNum++;
+     delta = 100;
+     }
+  
+     setTimeout(function() {
+     that.tick();
+     }, delta);
+  };
+  
+  window.onclick = function() {
+     var elements = document.getElementsByClassName('typewrite');
+     for (var i=0; i<elements.length; i++) {
+         var toRotate = elements[i].getAttribute('data-type');
+         var period = elements[i].getAttribute('data-period');
+         if (toRotate) {
+           new TxtType(elements[i], JSON.parse(toRotate), period);
+         }
+     }
+    
+  };
+
+  
+  </script>
+  
 <script>function startTime() {
   const today = new Date();
   let h = today.getHours();
@@ -115,7 +175,6 @@ function checkTime(i) {
 
 
 </script>
-
 
 
 
